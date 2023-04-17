@@ -7,7 +7,7 @@ const SignUp = () => {
     // const [confirmError , setConfirmError] = useState("");
     const [error, setError] = useState("");
 
-    const { googlePop } = useContext(userContext);
+    const { googlePop,createUser } = useContext(userContext);
 
     const handleSignUp = event => {
         event.preventDefault();
@@ -23,7 +23,7 @@ const SignUp = () => {
         }
 
         else if (password.length < 6) {
-            setError("Add some character")
+            setError("Password must be 6 character")
             return;
         }
 
@@ -41,6 +41,17 @@ const SignUp = () => {
             setError("please add at least one spacial character")
             return;
         }
+
+        createUser(email,password)
+        .then(result => {
+            const loggedIn = result.user
+            console.log(loggedIn)
+        })
+
+        .catch(error => {
+            setError(error.message);
+        })
+
     }
 
 
@@ -68,7 +79,7 @@ const SignUp = () => {
                     <label htmlFor="password">Password</label>
                     <br />
                     <input type="password" name="password" id="password" required />
-                    <p className='error'><small>{error}</small></p>
+                    {/* <p className='error'><small>{error}</small></p> */}
                 </div>
                 <div>
                     <input type="checkbox" name="checkbox" id="checkbox" className='pass-visible' />

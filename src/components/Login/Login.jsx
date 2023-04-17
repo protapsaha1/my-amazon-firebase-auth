@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Login.css';
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
@@ -6,7 +6,9 @@ import { userContext } from '../AuthProviders/AuthProviders';
 // import { FontAwesomeIcon , } from '@fortawesome/react-fontawesome';
 
 const Login = () => {
-    const { googlePop } = useContext(userContext);
+    const [error, setError] = useState("");
+    const [success, setSuccess] = useState("");
+    const { googlePop, userSignIn } = useContext(userContext);
 
     const handleLogin = event => {
         event.preventDefault();
@@ -14,6 +16,18 @@ const Login = () => {
         const email = form.email.value;
         const password = form.password.value;
         console.log(email, password)
+
+
+        userSignIn(email, password)
+            .then(result => {
+                console.log(result.user)
+                setError("")
+                form.reset()
+                setSuccess("Successfully login")
+            })
+            .catch(error => {
+                setError(error.message)
+            })
     }
 
     const handleGoogle = () => {
@@ -43,6 +57,7 @@ const Login = () => {
                     <br />
                     <input type="password" name="password" id="password" required />
                 </div>
+                <p className='success'><small>{success}</small></p>
                 <div>
                     <input type="checkbox" name="checkbox" id="checkbox" className='pass-visible' />
                     <label htmlFor="">See password</label>

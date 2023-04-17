@@ -16,3 +16,14 @@ nav.header a{
 nav.header a:hover{
     color: orange;
 }
+
+.user-info{
+    color: white;
+    margin-left: 10px;
+}
+
+.website-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
