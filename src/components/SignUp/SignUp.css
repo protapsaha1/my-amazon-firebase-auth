@@ -5,3 +5,13 @@
     border-radius: 8px;
     margin: 50px auto;
 }
+
+.error{
+    margin: 0;
+    color: red;
+}
+
+.success{
+    margin: 0;
+    color: rgb(14, 111, 14);
+}

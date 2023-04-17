@@ -1,17 +1,34 @@
 import React from 'react';
 import './Login.css';
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { userContext } from '../AuthProviders/AuthProviders';
 // import { FontAwesomeIcon , } from '@fortawesome/react-fontawesome';
 
 const Login = () => {
+    const { googlePop } = useContext(userContext);
 
     const handleLogin = event => {
         event.preventDefault();
         const form = event.target;
         const email = form.email.value;
         const password = form.password.value;
-        console.log(email,password)
+        console.log(email, password)
     }
+
+    const handleGoogle = () => {
+        googlePop()
+            .then(result => {
+                const loggedIn = result.user
+                console.log(loggedIn)
+            })
+
+            .catch(error => {
+                const errorMessage = error.message;
+                console.log(errorMessage)
+            })
+    }
+
     return (
         <div className='form-container'>
             <h2 className='form-title'>Login</h2>
@@ -34,7 +51,7 @@ const Login = () => {
                 <p className='create-regis'><small>New to amazon? <Link to="/sign-up" className='link'>Create New Account</Link></small></p>
             </form>
             <p className='divider'>____________________________ or ____________________________</p>
-            <button className='google-btn'>Continue with Google</button>
+            <button className='google-btn' onClick={handleGoogle}>Continue with Google</button>
         </div>
     );
 };
