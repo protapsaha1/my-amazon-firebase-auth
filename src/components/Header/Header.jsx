@@ -25,24 +25,28 @@ const Header = () => {
                     <span className='user-info'>Welcome {user.email}</span>
                 }
             </div>
-            <div>
-                <Link to="/">Shop</Link>
-                <Link to="/orders">Orders</Link>
-                <Link to="/inventory">Inventory</Link>
-                <Link to="/login">Login</Link>
-                <Link to="/sign-up">Sign up</Link>
-                {
-                    user
-                    &&
-                    <>
-                        <img className='user-img' src={user.photoURL} alt="" />
-                        <button className='sign-out' onClick={handleLogOut}>Sign Out</button>
-                    </>
-                }
+            <div className='path-user'>
+                <div>
+                    <Link to="/">Shop</Link>
+                    <Link to="/orders">Orders</Link>
+                    <Link to="/inventory">Inventory</Link>
+                    <Link to="/login">Login</Link>
+                    <Link to="/sign-up">Sign up</Link>
+                </div>
+                <div>
+                    {
+                        user
+                        &&
+                        <>
+                            <button className='sign-out' onClick={handleLogOut}>Sign Out</button>
+                            <img className='user-img' src={user.photoURL} alt="" />
+                        </>
+                    }
+                </div>
             </div>
-
-
         </nav>
+
+
     );
 };
 
