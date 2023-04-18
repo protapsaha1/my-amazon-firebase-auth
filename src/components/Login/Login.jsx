@@ -56,8 +56,8 @@ const Login = () => {
                     <label htmlFor="">Password</label>
                     <br />
                     <input type="password" name="password" id="password" required />
-                </div>
                 <p className='success'><small>{success}</small></p>
+                </div>
                 <div>
                     <input type="checkbox" name="checkbox" id="checkbox" className='pass-visible' />
                     <label htmlFor="">See password</label>

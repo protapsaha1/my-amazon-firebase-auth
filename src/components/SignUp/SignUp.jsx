@@ -7,7 +7,7 @@ const SignUp = () => {
     // const [confirmError , setConfirmError] = useState("");
     const [error, setError] = useState("");
 
-    const { googlePop,createUser } = useContext(userContext);
+    const { googlePop, createUser } = useContext(userContext);
 
     const handleSignUp = event => {
         event.preventDefault();
@@ -16,6 +16,8 @@ const SignUp = () => {
         const password = form.password.value;
         const confirmPass = form.confirm.value;
         console.log(email, password, confirmPass)
+
+        setError("")
 
         if (password !== confirmPass) {
             setError("please confirm password")
@@ -42,15 +44,15 @@ const SignUp = () => {
             return;
         }
 
-        createUser(email,password)
-        .then(result => {
-            const loggedIn = result.user
-            console.log(loggedIn)
-        })
+        createUser(email, password)
+            .then(result => {
+                const loggedIn = result.user
+                console.log(loggedIn)
+            })
 
-        .catch(error => {
-            setError(error.message);
-        })
+            .catch(error => {
+                setError(error.message);
+            })
 
     }
 
@@ -58,8 +60,9 @@ const SignUp = () => {
 
     const handleGoogle = () => {
         googlePop()
-            .then(() => {
-
+            .then(result => {
+                const loggedUser = result.user
+                console.log(loggedUser)
             })
             .catch(error => {
                 console.log(error.message)
