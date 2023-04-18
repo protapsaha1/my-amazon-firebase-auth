@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom';
 import { userContext } from '../AuthProviders/AuthProviders';
 
 const SignUp = () => {
-    // const [confirmError , setConfirmError] = useState("");
+    const [show , setShow] = useState(false);
+    const [showCon , setShowCon] = useState(false);
     const [error, setError] = useState("");
 
     const { googlePop, createUser } = useContext(userContext);
@@ -81,22 +82,22 @@ const SignUp = () => {
                 <div className="form-control">
                     <label htmlFor="password">Password</label>
                     <br />
-                    <input type="password" name="password" id="password" required />
+                    <input type={show ? "text" : "password"} name="password" id="password" required />
                     {/* <p className='error'><small>{error}</small></p> */}
                 </div>
                 <div>
-                    <input type="checkbox" name="checkbox" id="checkbox" className='pass-visible' />
-                    <label htmlFor="checkbox">See password</label>
+                    <input type="checkbox" name="checkbox" id="checkbox" className='pass-visible' onClick={()=>setShow(!show)} />
+                    <label htmlFor="checkbox">{show ? <span>Hide password </span> : <span>See password</span>}</label>
                 </div>
                 <div className="form-control">
                     <label htmlFor="confirm">Confirm Password</label>
                     <br />
-                    <input type="password" name="confirm" id="confirm" required />
+                    <input type={showCon ? "text" : "password"} name="confirm" id="confirm" required />
                     <p className='error'><small>{error}</small></p>
                 </div>
                 <div>
-                    <input type="checkbox" name="checkbox" id="checkbox-visible" className='pass-visible' />
-                    <label htmlFor="checkbox">See password</label>
+                    <input type="checkbox" name="checkbox" id="checkbox-visible" className='pass-visible' onClick={()=>setShowCon(!showCon)} />
+                    <label htmlFor="checkbox">{showCon ? <span>Hide password </span> : <span>See password</span>}</label>
                 </div>
                 <button className='login-btn'>Sign up</button>
                 <p className='create-regis'><small>Already have an Account? <Link to="/login" className='link'>Please Login</Link></small></p>

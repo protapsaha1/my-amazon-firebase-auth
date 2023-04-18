@@ -1,14 +1,20 @@
 import React, { useState } from 'react';
 import './Login.css';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { userContext } from '../AuthProviders/AuthProviders';
 // import { FontAwesomeIcon , } from '@fortawesome/react-fontawesome';
 
 const Login = () => {
+    const [show, setShow] = useState(false);
+
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
     const { googlePop, userSignIn } = useContext(userContext);
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const from = location.state?.from?.pathname || "/";
 
     const handleLogin = event => {
         event.preventDefault();
@@ -21,9 +27,10 @@ const Login = () => {
         userSignIn(email, password)
             .then(result => {
                 console.log(result.user)
-                setError("")
-                form.reset()
-                setSuccess("Successfully login")
+                setError("");
+                form.reset();
+                setSuccess("Successfully login");
+                navigate(from, { replace: true });
             })
             .catch(error => {
                 setError(error.message)
@@ -35,6 +42,7 @@ const Login = () => {
             .then(result => {
                 const loggedIn = result.user
                 console.log(loggedIn)
+
             })
 
             .catch(error => {
@@ -55,12 +63,13 @@ const Login = () => {
                 <div className="form-control">
                     <label htmlFor="">Password</label>
                     <br />
-                    <input type="password" name="password" id="password" required />
-                <p className='success'><small>{success}</small></p>
+                    <input type={show ? "text" : "password"} name="password" id="password" required />
+                    <p className='success'><small>{success}</small></p>
+                    <p className='error'><small>{error}</small></p>
                 </div>
                 <div>
-                    <input type="checkbox" name="checkbox" id="checkbox" className='pass-visible' />
-                    <label htmlFor="">See password</label>
+                    <input type="checkbox" name="checkbox" id="checkbox" className='pass-visible' onClick={()=>setShow(!show)} />
+                    <label htmlFor="">{show ? <span>Hide password</span> : <span>See password</span> }</label>
                 </div>
                 <button className='login-btn'>Login</button>
                 <p className='create-regis'><small>New to amazon? <Link to="/sign-up" className='link'>Create New Account</Link></small></p>
